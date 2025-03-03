@@ -1,0 +1,1 @@
+// Create theme switcher. Save the theme in local storage. During reloading the page check storage and apply the theme that is available there. add classes for changing themes
