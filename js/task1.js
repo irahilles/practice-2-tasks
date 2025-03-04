@@ -8,13 +8,15 @@ const refs = {
     list: document.querySelector('#task-list'),
 };
 
-let taskList = [];
+let taskList = JSON.parse(localStorage.getItem('tasks')) || [];
+refs.list.innerHTML = showList(taskList); 
 
 refs.form.addEventListener('submit', (e)=>{
 e.preventDefault();
 const userValue = refs.input.value.trim();
 if(!userValue){return};
 taskList.push(userValue);
+updateStorage();
 refs.list.innerHTML = '';
 refs.list.insertAdjacentHTML('beforeend', showList(taskList));
 refs.input.value = '';
@@ -36,5 +38,11 @@ refs.list.addEventListener('click', (e)=>{
 
 function deleteTask(index) {
     taskList.splice(index, 1); 
-    renderList(); 
+    updateStorage();
+    refs.list.innerHTML = showList(taskList); 
+}
+
+
+function updateStorage() {
+    localStorage.setItem('tasks', JSON.stringify(taskList));
 }
